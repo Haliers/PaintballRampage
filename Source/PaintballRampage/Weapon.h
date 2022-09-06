@@ -89,11 +89,24 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Decal Materials", meta = (AllowPrivateAccess = "true"))
 	UMaterialInterface* PaintMaterial;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Decal Materials", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UMaterialInstanceDynamic* DynamicPaintMaterial;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Color", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	FLinearColor LinearColor;
+
+	// Animation Assets
+	UPROPERTY(EditAnywhere, Category = "Animations", meta = (AllowPrivateAccess = "true"))
+	class UAnimMontage* FireAnimMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Animations", meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* ReloadAnimMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Animations", meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* SwapAnimMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Animations", meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* SwapBackwardsAnimMontage;
 
 	// Variables
 	UPROPERTY(EditAnywhere, Category = "Variables", meta = (AllowPrivateAccess = "true"))
@@ -102,14 +115,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Variables", meta = (AllowPrivateAccess = "true"))
 	int32 MagSize;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Variables", meta = (AllowPrivateAccess = "true"))
+	FVector DecalSize;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Variables", meta = (AllowPrivateAccess = "true"))
 	float Damage;
-
-	UPROPERTY(EditAnywhere, Category = "Animations", meta = (AllowPrivateAccess = "true"))
-	class UAnimMontage* FireAnimMontage;
-
-	UPROPERTY(EditAnywhere, Category = "Animations", meta = (AllowPrivateAccess = "true"))
-	UAnimMontage* ReloadAnimMontage;
 
 	// Runtime variables
 	bool bTriggerPulled;
@@ -125,6 +135,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual bool SetCocked(bool Param_bCocked);
+
+	void PlayUnequipAnimation();
+
+	void PlayEquipAnimation();
 
 	FORCEINLINE void SetIfIdle(bool Param_bIdle) { bIdle = Param_bIdle; }
 

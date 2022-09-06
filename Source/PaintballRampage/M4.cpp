@@ -41,27 +41,6 @@ bool AM4::SetCocked(bool Param_bCocked)
 	return bCocked;
 }
 
-int32 AM4::FinaliseReload(int32 AmmoReserve)
-{
-	int32 EmptyAmmo{ MagSize - AmmoInMag };
-
-	if (EmptyAmmo > AmmoReserve)
-	{
-		AmmoInMag = AmmoReserve;
-		AmmoReserve = 0;
-	}
-	else
-	{
-		AmmoInMag = MagSize;
-		AmmoReserve -= EmptyAmmo;
-	}
-
-	bReloading = false;
-	CalculateCanFire();
-
-	return AmmoReserve;
-}
-
 void AM4::BeginPlay()
 {
 	Super::BeginPlay();

@@ -4,23 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "Weapon.h"
-#include "Glock.generated.h"
+#include "Intervention.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PAINTBALLRAMPAGE_API AGlock : public AWeapon
+class PAINTBALLRAMPAGE_API AIntervention : public AWeapon
 {
 	GENERATED_BODY()
-	
 
 public:
-	AGlock();
+	AIntervention();
 
 	void InitiateFireSequence() override;
-
-	bool SetCocked(bool Param_bCocked);
 
 protected:
 	virtual void BeginPlay() override;

@@ -5,6 +5,7 @@
 #include "Math/UnrealMathUtility.h"
 #include "Animation/AnimMontage.h"
 #include "Animation/AnimInstance.h"
+#include "Library.h"
 
 AShotgun::AShotgun()
 {
@@ -44,5 +45,13 @@ bool AShotgun::SetCocked(bool Param_bCocked)
 	bCocked = Param_bCocked;
 
 	CalculateCanFire();
+	if (bCanFire)
+	{
+		ONSCREEN_DEBUG("true",1)
+	}
+	else
+	{
+		ONSCREEN_DEBUG("false", 1)
+	}
 	return bCocked;
 }

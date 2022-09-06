@@ -23,9 +23,6 @@ public:
 
 	bool SetCocked(bool Param_bCocked);
 
-	UFUNCTION(BlueprintCallable)
-	int32 FinaliseReload(int32 AmmoReserve);
-
 protected:
 	virtual void BeginPlay() override;
 

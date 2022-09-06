@@ -70,9 +70,6 @@ void AProtagonist::BeginPlay()
 	WeaponsAvailable.Add(Weapons[0]);
 	
 	EquipWeaponByCurrentIndex();
-
-	// Setup pickup sphere
-
 }
 
 void AProtagonist::MoveForward(float Val)
@@ -203,18 +200,6 @@ AWeapon* AProtagonist::SpawnWeapon(TSubclassOf<AWeapon> WeaponClass)
 	return nullptr;
 }
 
-void AProtagonist::PerformPickup(
-	UPrimitiveComponent* OverlappedComponent, 
-	AActor* OtherActor, 
-	UPrimitiveComponent* 
-	OtherComponent, 
-	int32 OtherBodyIndex, 
-	bool bFromSweep, 
-	const FHitResult& SweepResult)
-{
-	ONSCREEN_DEBUG("Perform pickup", 1)
-}
-
 void AProtagonist::EquipWeaponByCurrentIndex()
 {
 	int32 PreviousIndex = CurrentWeaponIndex - 1;
@@ -340,6 +325,14 @@ void AProtagonist::ChangeWeapon()
 	if (CurrentWeaponIndex >= WeaponsAvailable.Num()) CurrentWeaponIndex = 0;
 
 	EquipWeaponByCurrentIndex();
+}
+
+void AProtagonist::StartChangeWeapon()
+{
+	if (WeaponsAvailable[CurrentWeaponIndex])
+	{
+		WeaponsAvailable[CurrentWeaponIndex]->PlayUnequipAnimation();
+	}
 }
 
 void AProtagonist::DeathSetupBlueprint_Implementation()

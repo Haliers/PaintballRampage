@@ -43,14 +43,6 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	class AWeapon* SpawnWeapon(TSubclassOf<AWeapon> WeaponClass);
 
-	void PerformPickup(
-		class UPrimitiveComponent* OverlappedComp, 
-		class AActor* OtherActor,
-		class UPrimitiveComponent* OtherComp, 
-		int32 OtherBodyIndex, 
-		bool bFromSweep, 
-		const FHitResult& SweepResult);
-
 	// void TryPickUpWeapon();
 	void EquipWeaponByCurrentIndex();
 
@@ -66,6 +58,8 @@ protected:
 	void SetAmmoReserveForAmmoColor(float Reserve);
 
 	void ChangeWeapon();
+
+	void StartChangeWeapon();
 
 public:	
 	// Called every frame
@@ -91,6 +85,11 @@ public:
 	void Milestone();
 
 private:
+	// Test
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapons", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<AWeapon> TestWeaponClass;
+	//
+
 	// Class variables declared here
 	UPROPERTY(EditAnywhere, Category = "Variables", meta = (AllowPrivateAccess = "true"))
 	float Speed;

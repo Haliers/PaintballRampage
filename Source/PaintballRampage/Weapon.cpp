@@ -6,7 +6,6 @@
 #include "Engine/SkeletalMeshSocket.h"
 #include "Animation/AnimMontage.h"
 #include "Animation/AnimInstance.h"
-#include "Components/SphereComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/Actor.h"
@@ -17,8 +16,8 @@
 
 // Sets default values
 AWeapon::AWeapon() :
-	bTriggerPulled(false),
 	MagSize(12.f),
+	bTriggerPulled(false),
 	bIdle(true),
 	bCanFire(true),
 	bCocked(true)
@@ -34,6 +33,8 @@ AWeapon::AWeapon() :
 
 	FireAnimMontage = CreateDefaultSubobject<UAnimMontage>("FireAnimation");
 	ReloadAnimMontage = CreateDefaultSubobject<UAnimMontage>("ReloadAnimation");
+
+	DecalSize = FVector(10.f,50.f,50.f);
 }
 
 // Called when the game starts or when spawned
@@ -151,6 +152,7 @@ void AWeapon::Fire()
 
 		AmmoInMag -= 1;
 		bCocked = false;
+		CalculateCanFire();
 
 		MakeNoise(1.f, GetWorld()->GetFirstPlayerController()->GetPawn(), GetActorLocation(), 0.f, TAG_GUNSHOT);
 	}
@@ -171,7 +173,7 @@ void AWeapon::SpawnDecalAtHitLocation_Implementation(FHitResult Param_Hit)
 
 void AWeapon::InitiateFireSequence()
 {
-	// GEngine->AddOnScreenDebugMessage(0, 2, FColor::Green, TEXT("AWeapon::InitiateFireSequence()"));
+	
 }
 
 bool AWeapon::SetCocked(bool Param_bCocked)
@@ -180,6 +182,26 @@ bool AWeapon::SetCocked(bool Param_bCocked)
 
 	CalculateCanFire();
 	return bCocked;
+}
+
+void AWeapon::PlayUnequipAnimation()
+{
+	UAnimInstance* AnimInstance{ (SkeletalMeshComponent) ? SkeletalMeshComponent->GetAnimInstance() : nullptr };
+
+	if (SwapBackwardsAnimMontage && AnimInstance)
+	{
+		AnimInstance->Montage_Play(SwapBackwardsAnimMontage);
+	}
+}
+
+void AWeapon::PlayEquipAnimation()
+{
+	UAnimInstance* AnimInstance{ (SkeletalMeshComponent) ? SkeletalMeshComponent->GetAnimInstance() : nullptr };
+
+	if (SwapAnimMontage && AnimInstance)
+	{
+		AnimInstance->Montage_Play(SwapAnimMontage);
+	}
 }
 
 void AWeapon::BeginPlaySetup()
