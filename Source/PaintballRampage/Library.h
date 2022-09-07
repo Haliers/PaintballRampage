@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 
 #define ONSCREEN_DEBUG(str, t) GEngine->AddOnScreenDebugMessage(-1, t, FColor::Yellow, FString::Printf(TEXT(str)));
+#define ONSCREEN_DEBUG_FLOAT(flt) GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Yellow, FString::Printf(TEXT("%f"), flt));
 
 // Niagara system color definitions
 #define PURPLE FColor::FColor(230, 0, 156)

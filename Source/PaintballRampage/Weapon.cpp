@@ -20,7 +20,8 @@ AWeapon::AWeapon() :
 	bTriggerPulled(false),
 	bIdle(true),
 	bCanFire(true),
-	bCocked(true)
+	bCocked(true),
+	bChangingWeapon(true)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -72,12 +73,26 @@ void AWeapon::SpawnImpactFX_Implementation(FVector ImpactLocation, FVector Impac
 void AWeapon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
 
+void AWeapon::SetChangingWeapon(bool Param_bChaningWeapon)
+{
+	bChangingWeapon = Param_bChaningWeapon;
+	CalculateCanFire();
+
+	//if (bChangingWeapon)
+	//{
+	//	ONSCREEN_DEBUG("TRUE", 1)
+	//}
+	//else
+	//{
+	//	ONSCREEN_DEBUG("FALSE", 1)
+	//}
 }
 
 bool AWeapon::CalculateCanFire()
 {
-	if (!bReloading && bCocked)
+	if (!bReloading && bCocked && !bChangingWeapon)
 	{
 		bCanFire = true;
 	}
@@ -184,23 +199,13 @@ bool AWeapon::SetCocked(bool Param_bCocked)
 	return bCocked;
 }
 
-void AWeapon::PlayUnequipAnimation()
+void AWeapon::PlaySwapInAnimation()
 {
 	UAnimInstance* AnimInstance{ (SkeletalMeshComponent) ? SkeletalMeshComponent->GetAnimInstance() : nullptr };
 
-	if (SwapBackwardsAnimMontage && AnimInstance)
+	if (SwapInAnimMontage && AnimInstance)
 	{
-		AnimInstance->Montage_Play(SwapBackwardsAnimMontage);
-	}
-}
-
-void AWeapon::PlayEquipAnimation()
-{
-	UAnimInstance* AnimInstance{ (SkeletalMeshComponent) ? SkeletalMeshComponent->GetAnimInstance() : nullptr };
-
-	if (SwapAnimMontage && AnimInstance)
-	{
-		AnimInstance->Montage_Play(SwapAnimMontage);
+		AnimInstance->Montage_Play(SwapInAnimMontage);
 	}
 }
 

@@ -57,9 +57,8 @@ protected:
 	int32 GetAmmoReserveForAmmoColor();
 	void SetAmmoReserveForAmmoColor(float Reserve);
 
+	UFUNCTION(BlueprintCallable)
 	void ChangeWeapon();
-
-	void StartChangeWeapon();
 
 public:	
 	// Called every frame
@@ -85,11 +84,6 @@ public:
 	void Milestone();
 
 private:
-	// Test
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapons", meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<AWeapon> TestWeaponClass;
-	//
-
 	// Class variables declared here
 	UPROPERTY(EditAnywhere, Category = "Variables", meta = (AllowPrivateAccess = "true"))
 	float Speed;
@@ -126,10 +120,10 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapons", meta = (AllowPrivateAccess = "true"))
 	TArray<TSubclassOf<AWeapon>> WeaponClasses;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapons", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapons", meta = (AllowPrivateAccess = "true"))
 	TArray<AWeapon*> Weapons;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapons", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapons", meta = (AllowPrivateAccess = "true"))
 	TArray<AWeapon*> WeaponsAvailable;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapons", meta = (AllowPrivateAccess = "true"))
@@ -139,7 +133,6 @@ private:
 	AWeapon* WeaponTraced;
 
 	// HUD related
-
 
 
 	// Runtime variables

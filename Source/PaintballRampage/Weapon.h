@@ -63,6 +63,10 @@ public:
 
 	// Control fire
 	FORCEINLINE bool SetReloading(bool Param_bReloading) { return bReloading = Param_bReloading; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetChangingWeapon(bool Param_bChaningWeapon);
+
 	
 	UFUNCTION(BlueprintCallable)
 	bool CalculateCanFire();
@@ -103,10 +107,7 @@ protected:
 	UAnimMontage* ReloadAnimMontage;
 
 	UPROPERTY(EditAnywhere, Category = "Animations", meta = (AllowPrivateAccess = "true"))
-	UAnimMontage* SwapAnimMontage;
-
-	UPROPERTY(EditAnywhere, Category = "Animations", meta = (AllowPrivateAccess = "true"))
-	UAnimMontage* SwapBackwardsAnimMontage;
+	UAnimMontage* SwapInAnimMontage;
 
 	// Variables
 	UPROPERTY(EditAnywhere, Category = "Variables", meta = (AllowPrivateAccess = "true"))
@@ -128,6 +129,7 @@ protected:
 	bool bCanFire;
 	bool bReloading;
 	bool bCocked;
+	bool bChangingWeapon;
 
 	FHitResult HitResultFromCharacter;
 
@@ -136,9 +138,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual bool SetCocked(bool Param_bCocked);
 
-	void PlayUnequipAnimation();
-
-	void PlayEquipAnimation();
+	void PlaySwapInAnimation();
 
 	FORCEINLINE void SetIfIdle(bool Param_bIdle) { bIdle = Param_bIdle; }
 

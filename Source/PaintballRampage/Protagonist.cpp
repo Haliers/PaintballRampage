@@ -1,4 +1,4 @@
- // Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Protagonist.h"
@@ -227,8 +227,11 @@ void AProtagonist::EquipWeaponByCurrentIndex()
 
 		WeaponsAvailable[CurrentWeaponIndex]->SetActorRelativeLocation(FVector(0.f, 0.f, 0.f));
 		WeaponsAvailable[CurrentWeaponIndex]->SetActorRelativeRotation(FRotator(0.f, 0.f, 0.f));
+
+		WeaponsAvailable[CurrentWeaponIndex]->SetChangingWeapon(true);
+
+		WeaponsAvailable[CurrentWeaponIndex]->PlaySwapInAnimation();
 	}
-	
 }
 
 void AProtagonist::CockWeapon()
@@ -321,17 +324,12 @@ void AProtagonist::SetAmmoReserveForAmmoColor(float Reserve)
 
 void AProtagonist::ChangeWeapon()
 {
-	CurrentWeaponIndex++;
-	if (CurrentWeaponIndex >= WeaponsAvailable.Num()) CurrentWeaponIndex = 0;
-
-	EquipWeaponByCurrentIndex();
-}
-
-void AProtagonist::StartChangeWeapon()
-{
-	if (WeaponsAvailable[CurrentWeaponIndex])
+	if (WeaponsAvailable.Num() > 1)
 	{
-		WeaponsAvailable[CurrentWeaponIndex]->PlayUnequipAnimation();
+		CurrentWeaponIndex++;
+		if (CurrentWeaponIndex >= WeaponsAvailable.Num()) CurrentWeaponIndex = 0;
+
+		EquipWeaponByCurrentIndex();
 	}
 }
 
