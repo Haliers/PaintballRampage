@@ -144,7 +144,7 @@ void AProtagonist::ReleaseTrigger()
 
 void AProtagonist::InitiateReloadFromCharacter()
 {
-	if (WeaponsAvailable[CurrentWeaponIndex] && !WeaponsAvailable[CurrentWeaponIndex]->GetIsReloading())
+	if (WeaponsAvailable[CurrentWeaponIndex] && !WeaponsAvailable[CurrentWeaponIndex]->GetIsReloading() && WeaponsAvailable[CurrentWeaponIndex]->GetCanFire())
 	{
 		float EmptyAmmo = WeaponsAvailable[CurrentWeaponIndex]->GetMagSize() - WeaponsAvailable[CurrentWeaponIndex]->GetAmmo();
 

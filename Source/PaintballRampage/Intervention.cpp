@@ -16,9 +16,11 @@ void AIntervention::InitiateFireSequence()
 
 void AIntervention::Fire()
 {
+	ONSCREEN_DEBUG("Intervention fire", 1)
+
 	if (AmmoInMag > 0 && bCanFire)
 	{
-		FVector BeamStart = MuzzleSceneComponent->GetComponentLocation();
+		FVector BeamStart = HitResultFromCharacter.TraceStart;
 		FVector BeamEnd = HitResultFromCharacter.TraceEnd;
 
 		TArray<FHitResult> InterventionHits;
@@ -26,10 +28,11 @@ void AIntervention::Fire()
 
 		if (InterventionHits.Num() > 0)
 		{
-			SpawnDecalAtHitLocation(InterventionHits.Last().ImpactPoint, InterventionHits.Last().ImpactNormal);
-			ApplyDamageIfDamagable(InterventionHits);
-
 			BeamEnd = HitResultFromCharacter.ImpactPoint;
+
+			SpawnDecalAtHitLocation(BeamEnd, HitResultFromCharacter.ImpactNormal);
+			ApplyDamageIfDamagable(InterventionHits);
+			
 			SpawnImpactFX(HitResultFromCharacter.ImpactPoint, HitResultFromCharacter.ImpactNormal);
 
 			// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%s"), *HitResultFromCharacter.GetActor()->GetName()));
