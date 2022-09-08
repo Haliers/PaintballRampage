@@ -12,11 +12,6 @@ AGlock::AGlock()
 	WeaponName = TEXT("Glock 19");
 }
 
-void AGlock::InitiateFireSequence()
-{
-	Super::Fire();
-}
-
 void AGlock::BeginPlay()
 {
 	Super::BeginPlay();

@@ -17,7 +17,6 @@ AEnemySpawner::AEnemySpawner() :
 	StartingSpawnRate(5.f),
 	MaxSpawnRate(0.5f),
 	NumEnemy(0),
-	KillMilestoneStart(1),
 	bSpawnEnabled(true),
 	ElapsedTimeFromLastSpawn(0.f)
 {
@@ -35,7 +34,6 @@ void AEnemySpawner::BeginPlay()
 		UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
 
 	SpawnRate = StartingSpawnRate;
-	KillMilestone = KillMilestoneStart;
 	
 	SpawnEnemy();
 }
@@ -109,17 +107,15 @@ ABaseEnemy* AEnemySpawner::SpawnEnemy()
 void AEnemySpawner::EnemyDead()
 {
 	NumEnemy--;
-	KillMilestone--;
+
+	if (Protagonist)
+	{
+		Protagonist->ProgressMilestone();
+	}
 	
 	if (SpawnRate > MaxSpawnRate)
 	{
 		SpawnRate -= 0.1f;
-	}
-
-	if (KillMilestone == 0 && Protagonist)
-	{
-		Protagonist->Milestone();
-		KillMilestone = KillMilestoneStart;
 	}
 }
 

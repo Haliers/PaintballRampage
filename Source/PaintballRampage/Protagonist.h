@@ -81,10 +81,10 @@ public:
 
 	class UAnimInstance* GetAnimInstance();
 
-	void Milestone();
-
 	UFUNCTION(BlueprintCallable)
 	int32 GetCurrentReserveAmmo();
+
+	void ProgressMilestone();
 
 private:
 	// Class variables declared here
@@ -135,8 +135,12 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapons", meta = (AllowPrivateAccess = "true"))
 	AWeapon* WeaponTraced;
 
-	// HUD related
+	// Milestone related
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	int32 KillMilestoneStart;
 
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	int32 KillMilestone;
 
 	// Runtime variables
 	bool bAutoFire;
@@ -206,4 +210,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE float GetHPPercentage() { return HP / StartingHP; }
 
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE int32 GetMilestoneKills() { return KillMilestone; }
 };

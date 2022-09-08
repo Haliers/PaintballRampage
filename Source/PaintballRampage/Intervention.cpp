@@ -16,15 +16,13 @@ void AIntervention::InitiateFireSequence()
 
 void AIntervention::Fire()
 {
-	ONSCREEN_DEBUG("Intervention fire", 1)
-
 	if (AmmoInMag > 0 && bCanFire)
 	{
 		FVector BeamStart = HitResultFromCharacter.TraceStart;
 		FVector BeamEnd = HitResultFromCharacter.TraceEnd;
 
 		TArray<FHitResult> InterventionHits;
-		GetWorld()->LineTraceMultiByChannel(InterventionHits, BeamStart,BeamEnd,ECollisionChannel::ECC_Visibility);
+		GetWorld()->LineTraceMultiByChannel(InterventionHits, BeamStart,BeamEnd,ECollisionChannel::ECC_GameTraceChannel6);
 
 		if (InterventionHits.Num() > 0)
 		{

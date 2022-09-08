@@ -90,12 +90,6 @@ private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	int32 NumEnemy;
 
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	int32 KillMilestoneStart;
-
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	int32 KillMilestone;
-
 	UPROPERTY(EditAnywhere, Category = "Spawner", meta = (AllowPrivateAccess = "true"))
 	bool bSpawnEnabled;
 

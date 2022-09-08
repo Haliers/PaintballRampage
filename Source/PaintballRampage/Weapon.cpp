@@ -200,7 +200,7 @@ void AWeapon::SpawnDecalAtHitLocation_Implementation(FVector ImpactLocation, FVe
 
 void AWeapon::InitiateFireSequence()
 {
-	
+	Fire();
 }
 
 bool AWeapon::SetCocked(bool Param_bCocked)

@@ -29,7 +29,8 @@ AProtagonist::AProtagonist() :
 	RedAmmoReserve(10.f),
 	KeyText(TEXT("E")),
 	bInteractionVisible(false),
-	CurrentWeaponIndex(0)
+	CurrentWeaponIndex(0),
+	KillMilestoneStart(10)
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -70,6 +71,8 @@ void AProtagonist::BeginPlay()
 	WeaponsAvailable.Add(Weapons[0]);
 	
 	EquipWeaponByCurrentIndex();
+
+	KillMilestone = KillMilestoneStart;
 }
 
 void AProtagonist::MoveForward(float Val)
@@ -398,21 +401,6 @@ UAnimInstance* AProtagonist::GetAnimInstance()
 	}
 }
 
-void AProtagonist::Milestone()
-{
-	int32 Milestone = WeaponsAvailable.Num();
-	int32 MaxMilestone = Weapons.Num();
-
-	if (Milestone < MaxMilestone)
-	{
-		WeaponsAvailable.Add(Weapons[Milestone]);
-	}
-	else
-	{
-		return;
-	}
-}
-
 int32 AProtagonist::GetCurrentReserveAmmo()
 {
 	EAmmoColor CurrentAmmoColor = WeaponsAvailable[CurrentWeaponIndex]->GetAmmoColor();
@@ -440,6 +428,28 @@ int32 AProtagonist::GetCurrentReserveAmmo()
 	}
 
 	return CurrentAmmoReserve;
+}
+
+void AProtagonist::ProgressMilestone()
+{
+	KillMilestone--;
+	
+	if (KillMilestone == 0)
+	{
+		int32 Milestone = WeaponsAvailable.Num();
+		int32 MaxMilestone = Weapons.Num();
+
+		if (Milestone < MaxMilestone)
+		{
+			WeaponsAvailable.Add(Weapons[Milestone]);
+		}
+		else
+		{
+			return;
+		}
+
+		KillMilestone = KillMilestoneStart;
+	}
 }
 
 // Called to bind functionality to input

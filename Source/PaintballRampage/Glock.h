@@ -18,8 +18,6 @@ class PAINTBALLRAMPAGE_API AGlock : public AWeapon
 public:
 	AGlock();
 
-	void InitiateFireSequence() override;
-
 protected:
 	virtual void BeginPlay() override;
 
