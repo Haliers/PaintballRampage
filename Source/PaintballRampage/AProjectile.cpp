@@ -26,7 +26,7 @@ void AAProjectile::SpawnImpactFX_Implementation(FVector ImpactLocation, FVector 
 {
 }
 
-void AAProjectile::SpawnDecalAtHitLocation_Implementation(FVector ImpactLocation, FVector ImpactNormal)
+void AAProjectile::SpawnDecalAtHitLocation_Implementation(FVector ImpactLocation, FVector ImpactNormal, UPrimitiveComponent* AttachComponent)
 {
 }
 

@@ -40,27 +40,29 @@ void AEnemySpawner::BeginPlay()
 
 ABaseEnemy* AEnemySpawner::SpawnEnemy()
 {
-	int32 RandInt = FMath::RandRange((int32)0, (int32)4);
+	int32 CurrentMilestone {1};
+
+	if (Protagonist)
+	{
+		CurrentMilestone = Protagonist->GetMilestone();
+	}
+	
+	int32 RandInt = FMath::RandRange((int32)1, (int32)CurrentMilestone);
 	UMaterialInterface* RandomPrimaryMaterial{};
 	UMaterialInterface* RandomDeathDecal{};
 	EEnemyColor SpawnedEnemyColor{};
 
 	switch (RandInt)
 	{
-	case 0:
+	case 1:
 		RandomPrimaryMaterial = PurpleMaterial;
 		RandomDeathDecal = PurpleDecal;
 		SpawnedEnemyColor = EEnemyColor::EEC_Purple;
 		break;
-	case 1:
+	case 2:
 		RandomPrimaryMaterial = YellowMaterial;
 		RandomDeathDecal = YellowDecal;
 		SpawnedEnemyColor = EEnemyColor::EEC_Yellow;
-		break;
-	case 2:
-		RandomPrimaryMaterial = GreenMaterial;
-		RandomDeathDecal = GreenDecal;
-		SpawnedEnemyColor = EEnemyColor::EEC_Green;
 		break;
 	case 3:
 		RandomPrimaryMaterial = BlueMaterial;
@@ -68,6 +70,11 @@ ABaseEnemy* AEnemySpawner::SpawnEnemy()
 		SpawnedEnemyColor = EEnemyColor::EEC_Blue;
 		break;
 	case 4:
+		RandomPrimaryMaterial = GreenMaterial;
+		RandomDeathDecal = GreenDecal;
+		SpawnedEnemyColor = EEnemyColor::EEC_Green;
+		break;
+	case 5:
 		RandomPrimaryMaterial = RedMaterial;
 		RandomDeathDecal = RedDecal;
 		SpawnedEnemyColor = EEnemyColor::EEC_Red;

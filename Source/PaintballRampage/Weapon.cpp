@@ -35,7 +35,7 @@ AWeapon::AWeapon() :
 	FireAnimMontage = CreateDefaultSubobject<UAnimMontage>("FireAnimation");
 	ReloadAnimMontage = CreateDefaultSubobject<UAnimMontage>("ReloadAnimation");
 
-	DecalSize = FVector(10.f,50.f,50.f);
+	DecalSize = FVector(5.f,50.f,50.f);
 }
 
 // Called when the game starts or when spawned
@@ -161,9 +161,9 @@ void AWeapon::Fire()
 
 		if (HitResultFromCharacter.bBlockingHit)
 		{
-			SpawnDecalAtHitLocation(HitResultFromCharacter.ImpactPoint, HitResultFromCharacter.ImpactNormal);
+			SpawnDecalAtHitLocation(HitResultFromCharacter.ImpactPoint, HitResultFromCharacter.ImpactNormal, HitResultFromCharacter.GetComponent());
 			ApplyDamageIfDamagable(HitResultFromCharacter);
-
+			
 			BeamEnd = HitResultFromCharacter.ImpactPoint;
 			SpawnImpactFX(HitResultFromCharacter.ImpactPoint, HitResultFromCharacter.ImpactNormal);
 			
@@ -194,7 +194,7 @@ void AWeapon::PlayFireAnimation()
 	}
 }
 
-void AWeapon::SpawnDecalAtHitLocation_Implementation(FVector ImpactLocation, FVector ImpactNormal)
+void AWeapon::SpawnDecalAtHitLocation_Implementation(FVector ImpactLocation, FVector ImpactNormal, UPrimitiveComponent* AttachComponent)
 {
 }
 

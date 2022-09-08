@@ -28,7 +28,7 @@ void AIntervention::Fire()
 		{
 			BeamEnd = HitResultFromCharacter.ImpactPoint;
 
-			SpawnDecalAtHitLocation(BeamEnd, HitResultFromCharacter.ImpactNormal);
+			SpawnDecalAtHitLocation(BeamEnd, HitResultFromCharacter.ImpactNormal, HitResultFromCharacter.GetComponent());
 			ApplyDamageIfDamagable(InterventionHits);
 			
 			SpawnImpactFX(HitResultFromCharacter.ImpactPoint, HitResultFromCharacter.ImpactNormal);

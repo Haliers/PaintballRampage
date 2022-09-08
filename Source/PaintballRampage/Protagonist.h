@@ -166,6 +166,8 @@ private:
 
 	FHitResult HitUnderLineTraceComponent;
 
+	int32 Milestone;
+
 public:
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE void AddPurpleAmmoReserve(int32 Amount) { PurpleAmmoReserve += Amount; }
@@ -212,4 +214,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE int32 GetMilestoneKills() { return KillMilestone; }
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE int32 GetMilestone() { return Milestone; }
 };

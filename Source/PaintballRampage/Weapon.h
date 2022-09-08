@@ -42,7 +42,7 @@ protected:
 	virtual void PlayFireAnimation();
 
 	UFUNCTION(BlueprintNativeEvent)
-	void SpawnDecalAtHitLocation(FVector ImpactLocation, FVector ImpactNormal);
+	void SpawnDecalAtHitLocation(FVector ImpactLocation, FVector ImpactNormal, UPrimitiveComponent* AttachComponent);
 
 	void ApplyDamageIfDamagable(FHitResult Param_Hit);
 	void ApplyDamageIfDamagable(TArray<FHitResult> HitArray); // Overloaded for penetrating weapons

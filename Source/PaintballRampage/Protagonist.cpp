@@ -30,7 +30,8 @@ AProtagonist::AProtagonist() :
 	KeyText(TEXT("E")),
 	bInteractionVisible(false),
 	CurrentWeaponIndex(0),
-	KillMilestoneStart(10)
+	KillMilestoneStart(10),
+	Milestone(1)
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -101,7 +102,7 @@ void AProtagonist::GetHitResultFromLineTraceComponent()
 	{
 		FVector TraceBegin{ LineTraceSceneComponent->GetComponentLocation() };
 		FVector TraceEnd{ TraceBegin + (LineTraceSceneComponent->GetComponentRotation().Vector() * 10000) };
-		GetWorld()->LineTraceSingleByChannel(HitUnderLineTraceComponent, TraceBegin, TraceEnd, ECollisionChannel::ECC_Visibility);
+		GetWorld()->LineTraceSingleByChannel(HitUnderLineTraceComponent, TraceBegin, TraceEnd, ECollisionChannel::ECC_GameTraceChannel3);
 
 		if (!HitUnderLineTraceComponent.bBlockingHit)
 		{
@@ -436,12 +437,12 @@ void AProtagonist::ProgressMilestone()
 	
 	if (KillMilestone == 0)
 	{
-		int32 Milestone = WeaponsAvailable.Num();
 		int32 MaxMilestone = Weapons.Num();
 
 		if (Milestone < MaxMilestone)
 		{
 			WeaponsAvailable.Add(Weapons[Milestone]);
+			Milestone++;
 		}
 		else
 		{

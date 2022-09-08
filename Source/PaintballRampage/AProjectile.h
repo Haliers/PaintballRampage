@@ -24,7 +24,7 @@ protected:
 
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	void SpawnDecalAtHitLocation(FVector ImpactLocation, FVector ImpactNormal);
+	void SpawnDecalAtHitLocation(FVector ImpactLocation, FVector ImpactNormal, UPrimitiveComponent* AttachComponent);
 
 public:	
 	// Called every frame
