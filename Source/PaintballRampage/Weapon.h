@@ -42,15 +42,19 @@ protected:
 	virtual void PlayFireAnimation();
 
 	UFUNCTION(BlueprintNativeEvent)
-	void SpawnDecalAtHitLocation(FHitResult Param_Hit);
+	void SpawnDecalAtHitLocation(FVector ImpactLocation, FVector ImpactNormal);
 
 	void ApplyDamageIfDamagable(FHitResult Param_Hit);
+	void ApplyDamageIfDamagable(TArray<FHitResult> HitArray); // Overloaded for penetrating weapons
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void SpawnTracer();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void SpawnImpactFX(FVector ImpactLocation, FVector ImpactNormal);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetProjectileColorData();
 
 
 public:	
@@ -128,7 +132,10 @@ protected:
 	bool bIdle;
 	bool bCanFire;
 	bool bReloading;
+
+	UPROPERTY(BlueprintReadOnly, meta =(AllowPrivateAccess = "true"))
 	bool bCocked;
+
 	bool bChangingWeapon;
 
 	FHitResult HitResultFromCharacter;

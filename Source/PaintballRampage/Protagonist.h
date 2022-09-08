@@ -83,6 +83,9 @@ public:
 
 	void Milestone();
 
+	UFUNCTION(BlueprintCallable)
+	int32 GetCurrentReserveAmmo();
+
 private:
 	// Class variables declared here
 	UPROPERTY(EditAnywhere, Category = "Variables", meta = (AllowPrivateAccess = "true"))

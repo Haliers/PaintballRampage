@@ -413,6 +413,35 @@ void AProtagonist::Milestone()
 	}
 }
 
+int32 AProtagonist::GetCurrentReserveAmmo()
+{
+	EAmmoColor CurrentAmmoColor = WeaponsAvailable[CurrentWeaponIndex]->GetAmmoColor();
+	int32 CurrentAmmoReserve = 0;
+
+	switch (CurrentAmmoColor)
+	{
+	case EAmmoColor::EAC_Purple:
+		CurrentAmmoReserve = PurpleAmmoReserve;
+		break;
+	case EAmmoColor::EAC_Yellow:
+		CurrentAmmoReserve = YellowAmmoReserve;
+		break;
+	case EAmmoColor::EAC_Green:
+		CurrentAmmoReserve = GreenAmmoReserve;
+		break;
+	case EAmmoColor::EAC_Blue:
+		CurrentAmmoReserve = BlueAmmoReserve;
+		break;
+	case EAmmoColor::EAC_Red:
+		CurrentAmmoReserve = RedAmmoReserve;
+		break;
+	default:
+		break;
+	}
+
+	return CurrentAmmoReserve;
+}
+
 // Called to bind functionality to input
 void AProtagonist::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {

@@ -17,14 +17,6 @@ void AGlock::InitiateFireSequence()
 	Super::Fire();
 }
 
-
-bool AGlock::SetCocked(bool Param_bCocked)
-{
-	bCocked = Param_bCocked;
-
-	return bCocked;
-}
-
 void AGlock::BeginPlay()
 {
 	Super::BeginPlay();

@@ -38,20 +38,7 @@ void AShotgun::InitiateFireSequence()
 
 		PlayFireAnimation();
 	}
-}
-
-bool AShotgun::SetCocked(bool Param_bCocked)
-{
-	bCocked = Param_bCocked;
-
-	CalculateCanFire();
-	if (bCanFire)
-	{
-		ONSCREEN_DEBUG("true",1)
+	else {
+		ONSCREEN_DEBUG("Cant fire",1)
 	}
-	else
-	{
-		ONSCREEN_DEBUG("false", 1)
-	}
-	return bCocked;
 }

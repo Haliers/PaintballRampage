@@ -19,7 +19,7 @@ protected:
 	void InitiateFireSequence() override;
 
 private:
-	UPROPERTY(EditAnywhere, Category = "Grenade", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, Category = "Variables", meta = (AllowPrivateAccess = "true"))
 	float DamageRadius;
 
 	UPROPERTY(EditAnywhere, Category = "Variables", meta = (AllowPrivateAccess = "true"))

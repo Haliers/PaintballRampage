@@ -61,11 +61,23 @@ void AWeapon::ApplyDamageIfDamagable(FHitResult Param_Hit)
 	}
 }
 
+void AWeapon::ApplyDamageIfDamagable(TArray<FHitResult> HitArray)
+{
+	for (auto Hit : HitArray)
+	{
+		ApplyDamageIfDamagable(Hit);
+	}
+}
+
 void AWeapon::SpawnTracer_Implementation()
 {
 }
 
 void AWeapon::SpawnImpactFX_Implementation(FVector ImpactLocation, FVector ImpactNormal)
+{
+}
+
+void AWeapon::SetProjectileColorData_Implementation()
 {
 }
 
@@ -149,7 +161,7 @@ void AWeapon::Fire()
 
 		if (HitResultFromCharacter.bBlockingHit)
 		{
-			SpawnDecalAtHitLocation(HitResultFromCharacter);
+			SpawnDecalAtHitLocation(HitResultFromCharacter.ImpactPoint, HitResultFromCharacter.ImpactNormal);
 			ApplyDamageIfDamagable(HitResultFromCharacter);
 
 			BeamEnd = HitResultFromCharacter.ImpactPoint;
@@ -182,7 +194,7 @@ void AWeapon::PlayFireAnimation()
 	}
 }
 
-void AWeapon::SpawnDecalAtHitLocation_Implementation(FHitResult Param_Hit)
+void AWeapon::SpawnDecalAtHitLocation_Implementation(FVector ImpactLocation, FVector ImpactNormal)
 {
 }
 

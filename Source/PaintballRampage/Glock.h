@@ -20,8 +20,6 @@ public:
 
 	void InitiateFireSequence() override;
 
-	bool SetCocked(bool Param_bCocked);
-
 protected:
 	virtual void BeginPlay() override;
 

@@ -17,7 +17,7 @@ AEnemySpawner::AEnemySpawner() :
 	StartingSpawnRate(5.f),
 	MaxSpawnRate(0.5f),
 	NumEnemy(0),
-	KillMilestoneStart(5),
+	KillMilestoneStart(1),
 	bSpawnEnabled(true),
 	ElapsedTimeFromLastSpawn(0.f)
 {

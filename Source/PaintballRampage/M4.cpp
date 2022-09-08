@@ -32,6 +32,7 @@ void AM4::InitiateFireSequence()
 bool AM4::SetCocked(bool Param_bCocked)
 {
 	bCocked = Param_bCocked;
+	CalculateCanFire();
 
 	if (bTriggerPulled)
 	{

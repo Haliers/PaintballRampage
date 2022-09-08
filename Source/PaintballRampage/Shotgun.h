@@ -28,8 +28,6 @@ public:
 
 	virtual void InitiateFireSequence() override;
 
-	bool SetCocked(bool Param_bCocked) override;
-
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE int32 GetPellets() { return Pellets; }
 
