@@ -122,7 +122,7 @@ void AEnemySpawner::EnemyDead()
 	
 	if (SpawnRate > MaxSpawnRate)
 	{
-		SpawnRate -= 0.1f;
+		SpawnRate -= 0.125f;
 	}
 }
 
