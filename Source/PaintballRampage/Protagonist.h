@@ -167,6 +167,8 @@ private:
 	FHitResult HitUnderLineTraceComponent;
 
 	int32 Milestone;
+	bool MilestoneKillCounterSwitch;
+	FString CounterText;
 
 public:
 	UFUNCTION(BlueprintCallable)
@@ -217,4 +219,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE int32 GetMilestone() { return Milestone; }
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE FString GetCounterText() { return CounterText; }
 };

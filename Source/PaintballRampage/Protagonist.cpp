@@ -31,7 +31,9 @@ AProtagonist::AProtagonist() :
 	bInteractionVisible(false),
 	CurrentWeaponIndex(0),
 	KillMilestoneStart(10),
-	Milestone(1)
+	Milestone(1),
+	MilestoneKillCounterSwitch(false),
+	CounterText(TEXT("Next milestone:"))
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -433,23 +435,33 @@ int32 AProtagonist::GetCurrentReserveAmmo()
 
 void AProtagonist::ProgressMilestone()
 {
-	KillMilestone--;
-	
-	if (KillMilestone == 0)
+	if (!MilestoneKillCounterSwitch)
 	{
-		int32 MaxMilestone = Weapons.Num();
+		KillMilestone--;
 
-		if (Milestone < MaxMilestone)
+		if (KillMilestone == 0)
 		{
-			WeaponsAvailable.Add(Weapons[Milestone]);
-			Milestone++;
-		}
-		else
-		{
-			return;
-		}
+			int32 MaxMilestone = Weapons.Num();
 
-		KillMilestone = KillMilestoneStart;
+			if (Milestone < MaxMilestone)
+			{
+				WeaponsAvailable.Add(Weapons[Milestone]);
+				Milestone++;
+			}
+			else
+			{
+				MilestoneKillCounterSwitch = true;
+				KillMilestone = 1;
+				CounterText = TEXT("Kills:");
+				return;
+			}
+
+			KillMilestone = KillMilestoneStart;
+		}
+	}
+	else
+	{
+		KillMilestone++;
 	}
 }
 
