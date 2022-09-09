@@ -4,6 +4,7 @@
 #include "AmmoDrop.h"
 #include "Math/UnrealMathUtility.h"
 #include "Protagonist.h"
+#include "Components/SphereComponent.h"
 #include "Library.h"
 
 
@@ -14,8 +15,11 @@ AAmmoDrop::AAmmoDrop()
 	PrimaryActorTick.bCanEverTick = true;
 
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("StaticMeshComponent");
-	StaticMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	SetRootComponent(StaticMeshComponent);
+
+	StaticMeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	StaticMeshComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	StaticMeshComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_GameTraceChannel8, ECollisionResponse::ECR_Overlap);
 
 }
 

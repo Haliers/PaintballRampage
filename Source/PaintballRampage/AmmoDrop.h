@@ -41,6 +41,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* StaticMeshComponent;
 
+	UPROPERTY(EditAnywhere, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	class USphereComponent* SphereComponent;
+
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	int32 AmmoMin;
 
