@@ -74,6 +74,9 @@ private:
 	class AProtagonist* Protagonist;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Spawn", meta = (AllowPrivateAccess = "true"))
+	int32 MaxSpawnedEnemies; // Time between spawning enemies in seconds
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Spawn", meta = (AllowPrivateAccess = "true"))
 	float StartingSpawnRate; // Time between spawning enemies in seconds
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Spawn", meta = (AllowPrivateAccess = "true"))

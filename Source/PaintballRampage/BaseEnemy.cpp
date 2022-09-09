@@ -222,8 +222,6 @@ void ABaseEnemy::SetEnemyColorData(UMaterialInterface* PrimaryMaterial, UMateria
 
 float ABaseEnemy::ApplyDamage(float Param_Damage)
 {
-	if (HP == 0) return 0;
-
 	HP -= Param_Damage;
 
 	if (HP <= 0)

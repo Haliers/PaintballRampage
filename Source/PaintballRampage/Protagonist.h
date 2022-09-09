@@ -25,9 +25,12 @@ protected:
 	void LookVertical(float Val);
 	void LookHorizontal(float Val);
 
+	void BeginPlaySetup();
+
 	void GetHitResultFromLineTraceComponent();
 
 	void JumpAbility();
+	void JumpCounter(float DeltaTime);
 
 	UFUNCTION(BlueprintCallable)
 	void PullTrigger();
@@ -143,7 +146,6 @@ private:
 	int32 KillMilestone;
 
 	// Runtime variables
-	bool bAutoFire;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	int32 PurpleAmmoReserve;
@@ -162,13 +164,16 @@ private:
 
 	FString CommandText;
 	FString KeyText;
-	bool bInteractionVisible;
 
 	FHitResult HitUnderLineTraceComponent;
 
 	int32 Milestone;
 	bool MilestoneKillCounterSwitch;
 	FString CounterText;
+	bool bCanJump;
+	float JumpCoolDown;
+	float JumpCoolDownCounter;
+	float JumpCoolDownPercentage;
 
 public:
 	UFUNCTION(BlueprintCallable)
@@ -209,9 +214,6 @@ public:
 	FORCEINLINE FString GetKeyText() { return KeyText; }
 
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE bool GetInteractionVisible() { return bInteractionVisible; }
-
-	UFUNCTION(BlueprintCallable)
 	FORCEINLINE float GetHPPercentage() { return HP / StartingHP; }
 
 	UFUNCTION(BlueprintCallable)
@@ -222,4 +224,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE FString GetCounterText() { return CounterText; }
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE float GetJumpCoolDownPercentage() { return JumpCoolDownPercentage; }
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE bool GetCanJump() { return bCanJump; }
 };

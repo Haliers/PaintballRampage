@@ -28,12 +28,14 @@ AProtagonist::AProtagonist() :
 	BlueAmmoReserve(10.f),
 	RedAmmoReserve(10.f),
 	KeyText(TEXT("E")),
-	bInteractionVisible(false),
 	CurrentWeaponIndex(0),
 	KillMilestoneStart(10),
 	Milestone(1),
 	MilestoneKillCounterSwitch(false),
-	CounterText(TEXT("Next milestone:"))
+	CounterText(TEXT("Next milestone:")),
+	bCanJump(true),
+	JumpCoolDown(5.f),
+	JumpCoolDownCounter(0.f)
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -62,20 +64,7 @@ void AProtagonist::BeginPlay()
 	HP = StartingHP;
 	CharacterMovementComponent = GetCharacterMovement();
 
-	// Setup weapons
-
-	Weapons.Empty();
-
-	for (auto WeaponClass : WeaponClasses)
-	{
-		Weapons.Add(SpawnWeapon(WeaponClass));
-		Weapons.Last()->SetActorLocation(FVector(0.f, 0.f, -200.f));
-	}
-	WeaponsAvailable.Add(Weapons[0]);
-	
-	EquipWeaponByCurrentIndex();
-
-	KillMilestone = KillMilestoneStart;
+	BeginPlaySetup();
 }
 
 void AProtagonist::MoveForward(float Val)
@@ -96,6 +85,24 @@ void AProtagonist::LookVertical(float Val)
 void AProtagonist::LookHorizontal(float Val)
 {
 	AddControllerYawInput(Val * LookSensitivity);
+}
+
+void AProtagonist::BeginPlaySetup()
+{
+	Weapons.Empty();
+
+	for (auto WeaponClass : WeaponClasses)
+	{
+		Weapons.Add(SpawnWeapon(WeaponClass));
+		Weapons.Last()->SetActorLocation(FVector(0.f, 0.f, -200.f));
+	}
+	WeaponsAvailable.Add(Weapons[0]);
+
+	EquipWeaponByCurrentIndex();
+
+	KillMilestone = KillMilestoneStart;
+
+	JumpCoolDownCounter = JumpCoolDown;
 }
 
 void AProtagonist::GetHitResultFromLineTraceComponent()
@@ -124,12 +131,24 @@ void AProtagonist::GetHitResultFromLineTraceComponent()
 
 void AProtagonist::JumpAbility()
 {
-	if (!CharacterMovementComponent->IsFalling())
+	if (!CharacterMovementComponent->IsFalling() && bCanJump)
 	{
 		CharacterMovementComponent->AddImpulse(FVector(0.f,0.f,1000.f), true);
 
-		ONSCREEN_DEBUG("Jump called", 1)
+		bCanJump = false;
+		JumpCoolDownCounter = 0;
 	}	
+}
+
+void AProtagonist::JumpCounter(float DeltaTime)
+{
+	JumpCoolDownCounter += DeltaTime;
+	JumpCoolDownPercentage = JumpCoolDownCounter / JumpCoolDown;
+	if (JumpCoolDownPercentage >= 1 && !bCanJump)
+	{
+		JumpCoolDownPercentage = 1;
+		bCanJump = true;
+	}
 }
 
 void AProtagonist::PullTrigger()
@@ -350,6 +369,7 @@ void AProtagonist::Tick(float DeltaTime)
 
 	SetWeaponMovement();
 	GetHitResultFromLineTraceComponent();
+	JumpCounter(DeltaTime);
 
 	// DrawDebugSphere(GetWorld(), HitUnderLineTraceComponent.Location, 25.f, 8.f, FColor::Red, true);
 }

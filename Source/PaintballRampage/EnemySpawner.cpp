@@ -17,7 +17,8 @@ AEnemySpawner::AEnemySpawner() :
 	MaxSpawnRate(0.5f),
 	NumEnemy(0),
 	bSpawnEnabled(true),
-	ElapsedTimeFromLastSpawn(0.f)
+	ElapsedTimeFromLastSpawn(0.f),
+	MaxSpawnedEnemies(100)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -39,6 +40,8 @@ void AEnemySpawner::BeginPlay()
 
 ABaseEnemy* AEnemySpawner::SpawnEnemy()
 {
+	if (NumEnemy >= MaxSpawnedEnemies) return nullptr;
+	
 	int32 CurrentMilestone {1};
 
 	if (Protagonist)
