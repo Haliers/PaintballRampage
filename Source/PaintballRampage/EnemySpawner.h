@@ -35,8 +35,6 @@ public:
 private:
 	TSubclassOf<ABaseEnemy> GetRandomEnemyClass();
 	
-	bool RNGMachine();
-
 	// Components
 	 
 	UPROPERTY(EditAnywhere, Category = "Materials", meta = (AllowPrivateAccess = "true"))
@@ -70,13 +68,10 @@ private:
 	UMaterialInterface* RedDecal;
 
 	UPROPERTY(EditAnywhere, Category = "Spawned Enemies", meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<ABaseEnemy> GranyMMA;
+	TArray<TSubclassOf<ABaseEnemy>> EnemyClasses;
 
 	UPROPERTY()
 	class AProtagonist* Protagonist;
-
-	UPROPERTY(EditAnywhere, Category = "RNG", meta = (AllowPrivateAccess = "true"))
-	int32 WeaponDropChance;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Spawn", meta = (AllowPrivateAccess = "true"))
 	float StartingSpawnRate; // Time between spawning enemies in seconds

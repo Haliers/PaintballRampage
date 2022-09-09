@@ -13,7 +13,6 @@
 
 // Sets default values
 AEnemySpawner::AEnemySpawner() :
-	WeaponDropChance(10),
 	StartingSpawnRate(5.f),
 	MaxSpawnRate(0.5f),
 	NumEnemy(0),
@@ -47,12 +46,12 @@ ABaseEnemy* AEnemySpawner::SpawnEnemy()
 		CurrentMilestone = Protagonist->GetMilestone();
 	}
 	
-	int32 RandInt = FMath::RandRange((int32)1, (int32)CurrentMilestone);
+	int32 RandIntColor = FMath::RandRange((int32)1, (int32)CurrentMilestone);
 	UMaterialInterface* RandomPrimaryMaterial{};
 	UMaterialInterface* RandomDeathDecal{};
 	EEnemyColor SpawnedEnemyColor{};
 
-	switch (RandInt)
+	switch (RandIntColor)
 	{
 	case 1:
 		RandomPrimaryMaterial = PurpleMaterial;
@@ -92,8 +91,9 @@ ABaseEnemy* AEnemySpawner::SpawnEnemy()
 	if (SpawnedEnemy)
 	{
 		// ONSCREEN_DEBUG("Enemy correctly spawned", 2)
-
-		SpawnedEnemy->GetMesh()->SetMaterial(2, RandomPrimaryMaterial);
+		SpawnedEnemy->GetMesh()->SetMaterial(
+			SpawnedEnemy->GetMesh()->GetMaterialIndex(FName("Primary")),
+			RandomPrimaryMaterial);
 		SpawnedEnemy->SetEnemyColor(SpawnedEnemyColor);
 		SpawnedEnemy->SetEnemyColorData(RandomPrimaryMaterial, RandomDeathDecal);
 
@@ -144,30 +144,12 @@ void AEnemySpawner::Tick(float DeltaTime)
 
 TSubclassOf<ABaseEnemy> AEnemySpawner::GetRandomEnemyClass()
 {
-	int32 RandInt = FMath::RandRange((int32)0, (int32)0);
-	TSubclassOf<ABaseEnemy> RandomEnemyClass;
+	int32 RandInt = FMath::RandRange((int32)0, ((int32)EnemyClasses.Num() - 1));
 
-	switch (RandInt)
-	{
-	case 0:
-		RandomEnemyClass = GranyMMA;
-		break;
-	}
-
-	return RandomEnemyClass;
+	return EnemyClasses[RandInt];
 }
 
 FTransform AEnemySpawner::GetAppropriateRandomTransform_Implementation()
 {
 	return FTransform();
 }
-
-bool AEnemySpawner::RNGMachine()
-{
-	int32 RandomNumber = FMath::RandRange(1, WeaponDropChance);
-	if (RandomNumber == 1) return true;
-
-	return false;
-}
-
-

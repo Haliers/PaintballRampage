@@ -62,7 +62,11 @@ public:
 	FORCEINLINE void SetDamage(float Param_Damage) { Damage = Param_Damage; }
 
 	UFUNCTION(BlueprintCallable)
+	FORCEINLINE void SetLinearColor(FLinearColor P_LinearColor) { LinearColor = P_LinearColor; }
+
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE void SetDecalSize(FVector P_DecalSize) { DecalSize = P_DecalSize; }
 
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE void SetDynamicMaterial(UMaterialInstanceDynamic* P_DynamicPaintMaterial) { DynamicPaintMaterial = P_DynamicPaintMaterial; }
 };

@@ -71,7 +71,7 @@ public:
 	void SetEnemyColorData(UMaterialInterface* PrimaryMaterial, UMaterialInterface* Param_DeathDecal);
 
 
-private:
+protected:
 	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float NeutralSpeed;
 
@@ -156,6 +156,9 @@ public:
 	FORCEINLINE bool GetIsDead() { return bIsDead; }
 	FORCEINLINE bool GetCanAttack() { return bCanAttack; }
 	FORCEINLINE UBehaviorTree* GetBehaviorTree() { return BehaviorTree; }
+	
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE UMaterialInterface* GetPrimaryColor() { return PrimaryColor; }
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE float GetHealthPercentage() { return HP / StartingHP; }
